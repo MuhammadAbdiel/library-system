@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "e0814c1a-be89-4e62-be9f-f1020d2b74c0",
+		"name": "Eigen Technical Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14790339",
+		"_collection_link": "https://interstellar-space-625992.postman.co/workspace/interstellar-space-625992-Works~43265756-0310-4776-8a97-58d803cee111/collection/14790339-e0814c1a-be89-4e62-be9f-f1020d2b74c0?action=share&source=collection_link&creator=14790339"
+	},
+	"item": [
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_DEV}}:{{PORT}}/api/v1/books",
+							"host": [
+								"{{URL_DEV}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Members",
+			"item": [
+				{
+					"name": "Get All Members",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_DEV}}:{{PORT}}/api/v1/members",
+							"host": [
+								"{{URL_DEV}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrow Books",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"memberId\": \"6222882126f7cc72f30ea0da\",\r\n    \"bookId\": \"62cfe59890e64e9e644d3fb9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_DEV}}:{{PORT}}/api/v1/members/borrow",
+							"host": [
+								"{{URL_DEV}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"borrow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return Books",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"memberId\": \"6222882126f7cc72f30ea0df\",\r\n    \"bookId\": \"62cfe59890e64e9e644d3fb9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_DEV}}:{{PORT}}/api/v1/members/return",
+							"host": [
+								"{{URL_DEV}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"return"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_DEV}}:{{PORT}}",
+					"host": [
+						"{{URL_DEV}}"
+					],
+					"port": "{{PORT}}"
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "PORT",
+			"value": "9000",
+			"type": "string"
+		},
+		{
+			"key": "URL_DEV",
+			"value": "http://localhost",
+			"type": "string"
+		}
+	]
+}

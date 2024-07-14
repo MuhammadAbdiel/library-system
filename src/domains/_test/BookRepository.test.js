@@ -25,6 +25,33 @@ describe('BookRepository', () => {
     }
   })
 
+  it('should throw an error for isBookAvailable method', async () => {
+    try {
+      await bookRepository.isBookAvailable({})
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error)
+      expect(error.message).toEqual('Not implemented')
+    }
+  })
+
+  it('should throw an error for decreaseStock method', async () => {
+    try {
+      await bookRepository.decreaseStock({})
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error)
+      expect(error.message).toEqual('Not implemented')
+    }
+  })
+
+  it('should throw an error for increaseStock method', async () => {
+    try {
+      await bookRepository.increaseStock({})
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error)
+      expect(error.message).toEqual('Not implemented')
+    }
+  })
+
   it('should throw an error for save method', async () => {
     try {
       await bookRepository.save({})

@@ -7,6 +7,18 @@ class BookRepository {
     throw new Error('Not implemented')
   }
 
+  async isBookAvailable(book) {
+    throw new Error('Not implemented')
+  }
+
+  async decreaseStock(book) {
+    throw new Error('Not implemented')
+  }
+
+  async increaseStock(book) {
+    throw new Error('Not implemented')
+  }
+
   async save(book) {
     throw new Error('Not implemented')
   }

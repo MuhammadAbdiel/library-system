@@ -1,7 +1,3 @@
-/* istanbul ignore file */
-const NotFoundError = require('../../../commons/errors/NotFoundError')
-const InvariantError = require('../../../commons/errors/InvariantError')
-
 class BorrowBooks {
   constructor(memberRepository, bookRepository) {
     this._memberRepository = memberRepository
@@ -10,45 +6,27 @@ class BorrowBooks {
 
   async execute(memberId, bookId) {
     const member = await this._memberRepository.findOne(memberId)
-    if (!member) {
-      throw new NotFoundError('Member not found')
-    }
 
-    if (member.penaltyEndDate && member.penaltyEndDate > new Date()) {
-      throw new InvariantError('Member is currently penalized')
-    }
-
-    if (member.borrowedBooks.length >= 2) {
-      throw new InvariantError('Member cannot borrow more than 2 books')
-    }
+    await this._memberRepository.isNotPenalized(member)
+    await this._memberRepository.isAbleToBorrow(member)
 
     const book = await this._bookRepository.findOne(bookId)
-    if (!book) {
-      throw new NotFoundError('Book not found')
-    }
 
-    if (book.stock <= 0) {
-      throw new InvariantError('Book is already borrowed by another member')
-    }
+    await this._bookRepository.isBookAvailable(book)
 
     const session = await this._memberRepository.startSession()
 
     try {
       session.startTransaction()
 
-      book.stock -= 1
-
-      member.borrowedBooks.push({
-        book: book._id,
-        borrowedDate: new Date(),
-      })
-
-      await this._bookRepository.save(book)
-      await this._memberRepository.save(member)
+      await this._bookRepository.decreaseStock(book)
+      await this._memberRepository.updateBorrowedBooks(member, book._id)
 
       await session.commitTransaction()
     } catch (error) {
+      /* istanbul ignore next */
       await session.abortTransaction()
+      /* istanbul ignore next */
       throw error
     } finally {
       session.endSession()

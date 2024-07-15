@@ -1,3 +1,5 @@
+const BorrowBook = require('../../../domains/entities/BorrowBook')
+
 class BorrowBooks {
   constructor(memberRepository, bookRepository) {
     this._memberRepository = memberRepository
@@ -5,12 +7,14 @@ class BorrowBooks {
   }
 
   async execute(memberId, bookId) {
-    const member = await this._memberRepository.findOne(memberId)
+    const borrowBook = new BorrowBook({ memberId, bookId })
+
+    const member = await this._memberRepository.findOne(borrowBook.memberId)
 
     await this._memberRepository.isNotPenalized(member)
     await this._memberRepository.isAbleToBorrow(member)
 
-    const book = await this._bookRepository.findOne(bookId)
+    const book = await this._bookRepository.findOne(borrowBook.bookId)
 
     await this._bookRepository.isBookAvailable(book)
 

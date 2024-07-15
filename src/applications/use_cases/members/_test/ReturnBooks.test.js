@@ -12,8 +12,8 @@ describe('ReturnBooks', () => {
   })
 
   it('should return book successfully', async () => {
-    const memberId = 'memberId'
-    const bookId = 'bookId'
+    const memberId = '6222882126f7cc72f30ea0df'
+    const bookId = '62cfe59890e64e9e644d3fb9'
 
     const mockMember = { _id: memberId, borrowedBooks: [{ book: bookId }] }
     const mockBook = { _id: bookId }
@@ -49,8 +49,8 @@ describe('ReturnBooks', () => {
   })
 
   it('should return book successfully with penalty', async () => {
-    const memberId = 'memberId'
-    const bookId = 'bookId'
+    const memberId = '6222882126f7cc72f30ea0df'
+    const bookId = '62cfe59890e64e9e644d3fb9'
 
     const mockMember = { _id: memberId, borrowedBooks: [{ book: bookId }], penaltyEndDate: new Date() }
     const mockBook = { _id: bookId }

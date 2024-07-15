@@ -1,3 +1,5 @@
+const ReturnBook = require('../../../domains/entities/ReturnBook')
+
 class ReturnBooks {
   constructor(memberRepository, bookRepository) {
     this._memberRepository = memberRepository
@@ -7,10 +9,12 @@ class ReturnBooks {
   async execute(memberId, bookId) {
     let message = 'Book returned successfully'
 
-    const member = await this._memberRepository.findOne(memberId)
-    const book = await this._bookRepository.findOne(bookId)
+    const returnBook = new ReturnBook({ memberId, bookId })
 
-    const borrowedBookIndex = member.borrowedBooks.findIndex((borrowedBook) => borrowedBook.book == bookId)
+    const member = await this._memberRepository.findOne(returnBook.memberId)
+    const book = await this._bookRepository.findOne(returnBook.bookId)
+
+    const borrowedBookIndex = member.borrowedBooks.findIndex((borrowedBook) => borrowedBook.book == returnBook.bookId)
 
     await this._memberRepository.isBookNotBorrowed(borrowedBookIndex)
     const isPenalized = await this._memberRepository.isPenalized(member, borrowedBookIndex)

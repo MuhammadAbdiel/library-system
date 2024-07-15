@@ -11,8 +11,8 @@ describe('BorrowBooks', () => {
   })
 
   it('should borrow a book successfully', async () => {
-    const memberId = 'memberId'
-    const bookId = 'bookId'
+    const memberId = '6222882126f7cc72f30ea0df'
+    const bookId = '62cfe59890e64e9e644d3fb9'
 
     const mockMember = { _id: memberId, borrowedBooks: [] }
     const mockBook = { _id: bookId, stock: 1 }
@@ -58,8 +58,8 @@ describe('BorrowBooks', () => {
   })
 
   it('should throw an error if member is penalized', async () => {
-    const memberId = 'memberId'
-    const bookId = 'bookId'
+    const memberId = '6222882126f7cc72f30ea0df'
+    const bookId = '62cfe59890e64e9e644d3fb9'
 
     const mockMember = { _id: memberId, borrowedBooks: [] }
 
@@ -78,8 +78,8 @@ describe('BorrowBooks', () => {
   })
 
   it('should throw an error if book is not available', async () => {
-    const memberId = 'memberId'
-    const bookId = 'bookId'
+    const memberId = '6222882126f7cc72f30ea0df'
+    const bookId = '62cfe59890e64e9e644d3fb9'
 
     const mockMember = { _id: memberId, borrowedBooks: [] }
     const mockBook = { _id: bookId, stock: 0 }

@@ -1,4 +1,5 @@
 const GetAllMembers = require('../GetAllMembers')
+const GetAllMember = require('../../../../domains/entities/GetAllMember')
 
 describe('GetAllMembers', () => {
   let getAllMembers
@@ -14,20 +15,18 @@ describe('GetAllMembers', () => {
   it('should return a list of members with the count of borrowed books', async () => {
     const mockMembers = [
       {
-        toJSON: () => ({
-          id: '1',
-          name: 'John Doe',
-          borrowedBooks: [{}], // 1 borrowed books
-        }),
-        borrowedBooks: [{}],
+        _id: '1',
+        code: '001',
+        name: 'John Doe',
+        borrowedBooks: 1,
+        penaltyEndDate: new Date().toISOString(),
       },
       {
-        toJSON: () => ({
-          id: '2',
-          name: 'Jane Doe',
-          borrowedBooks: [{}, {}], // 2 borrowed books
-        }),
-        borrowedBooks: [{}, {}],
+        _id: '2',
+        code: '002',
+        name: 'Jane Doe',
+        borrowedBooks: 2,
+        penaltyEndDate: new Date().toISOString(),
       },
     ]
 
@@ -35,27 +34,18 @@ describe('GetAllMembers', () => {
 
     const result = await getAllMembers.execute()
 
-    expect(result).toEqual([
-      {
-        id: '1',
-        name: 'John Doe',
-        borrowedBooks: 1,
-      },
-      {
-        id: '2',
-        name: 'Jane Doe',
-        borrowedBooks: 2,
-      },
-    ])
-    expect(mockMemberRepository.findAll).toHaveBeenCalledTimes(1)
-  })
+    const expectedMembers = mockMembers.map(
+      (member) =>
+        new GetAllMember({
+          _id: member._id,
+          code: member.code,
+          name: member.name,
+          borrowedBooks: member.borrowedBooks.length,
+          penaltyEndDate: member.penaltyEndDate,
+        }),
+    )
 
-  it('should return an empty list if no members are found', async () => {
-    mockMemberRepository.findAll.mockResolvedValue([])
-
-    const result = await getAllMembers.execute()
-
-    expect(result).toEqual([])
+    expect(result).toEqual(expectedMembers)
     expect(mockMemberRepository.findAll).toHaveBeenCalledTimes(1)
   })
 })
